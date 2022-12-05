@@ -1,5 +1,11 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION['login-status'])) {
+    $_SESSION['login-status'] = false;
+}
+
 require '../src/functions.php';
 
 if (isset($_POST['btn-submit'])) {

@@ -1,32 +1,21 @@
 <?php
-$page_now = "index";
+
+session_start();
+
+if (!isset($_SESSION['login-status'])) {
+    $_SESSION['login-status'] = false;
+    header('Location: login.php');
+    exit;
+}
+
 require '../src/functions.php';
 
 $products = get_all_data("products");
 
 if (isset($_POST['buy-btn'])) {
-    $total_product = $_POST['product-total'];
-
-    if ($total_product <= 0) {
-        echo "<script>alert('Total product unknown value')</script>";
-        header('Location: index.php');
-        exit;
+    if (insert_buy_data($_POST)) {
+        echo "<script>alert('Thank you for purchasing our product')</script>";
     }
-
-    $buyer = htmlspecialchars($_POST['buyer']);
-    $address = htmlspecialchars($_POST['address']);
-    $phone_number = htmlspecialchars($_POST['phone-number']);
-    $transaction_date = htmlspecialchars($_POST['transaction-date']);
-
-    $product_category = htmlspecialchars($_POST['product-category']);
-    $product_name = htmlspecialchars($_POST['product-name']);
-    $product_price = htmlspecialchars($_POST['product-price']);
-
-    $buy_values = "('', '$buyer', '$address', '$phone_number', '$transaction_date', '$product_category', '$product_name', $total_product, $product_price)";
-
-    insert_buy_data($buy_values);
-
-    echo "<script>alert('inserted')</script>";
 }
 ?>
 
@@ -59,15 +48,14 @@ if (isset($_POST['buy-btn'])) {
             </h2>
             <p>If a dog chews shoes whose shoes does he choose?</p>
             <div class="card-actions justify-end">
-                <!-- The button to open modal -->
-                <label for="my-modal-6" class="btn btn-sm">buy now</label>
+                <label for="add-modal-<?= $i ?>" class="btn btn-sm">buy now</label>
             </div>
         </div>
     </div>
 
-    <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-    <div class="modal modal-bottom sm:modal-middle">
-        <form class="modal-box" action="" method="post">
+    <input type="checkbox" id="add-modal-<?= $i ?>" class="modal-toggle" />
+    <div class="modal modal-bottom sm:modal-middle ">
+        <form class="modal-box relative" action="" method="post">
             <h3 class="font-bold text-lg"><?= $products[$i]['product_name'] ?></h3>
             <input type="text" value="<?= $products[$i]['product_name'] ?>" name="product-name" class="hidden">
 
@@ -100,7 +88,14 @@ if (isset($_POST['buy-btn'])) {
             <p class="py-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis nihil quae
                 voluptas consequuntur non qui.</p>
             <div class="modal-action">
-                <input for="my-modal-6" class="btn btn-sm" value="Buy" type="submit" name="buy-btn">
+                <label for="add-modal-<?= $i ?>" class="btn btn-square btn-sm btn-outline absolute top-0 right-0 m-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </label>
+                <input class="btn btn-sm" value="Buy" type="submit" name="buy-btn">
             </div>
         </form>
     </div>

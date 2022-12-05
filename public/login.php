@@ -1,9 +1,19 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['login-status'])) {
+    $_SESSION['login-status'] = false;
+}
+
 require '../src/functions.php';
 
 if (isset($_POST['btn-submit'])) {
-    if (login($_POST)) {
-        header('Location: index.php');
+    $admin = login($_POST);
+    if ($admin) {
+        $_SESSION['login-status'] = true;
+        $_SESSION['a_global'] = $admin;
+        $_SESSION['id'] = $admin->admin_id;
+        header('Location: dashboard.php');
         exit;
     }
 }
