@@ -2,7 +2,7 @@
 $page_name = "list_product";
 require '../src/functions.php';
 
-$products = get_all_products();
+$products = get_all_data("products");
 
 if (isset($_POST['buy-btn'])) {
     $total_product = $_POST['product-total'];
