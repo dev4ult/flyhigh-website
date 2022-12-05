@@ -6,8 +6,7 @@ $database = "nibras";
 
 $conn = mysqli_connect($host, $user, $pass, $database);
 
-function get_all_products()
-{
+function get_all_products() {
     global $conn;
 
     $raw_data = mysqli_query($conn, "SELECT * FROM products");
@@ -20,19 +19,16 @@ function get_all_products()
     return $rows;
 }
 
-function get_category($id)
-{
+function get_category($id) {
     global $conn;
 
     $data = mysqli_query($conn, "SELECT * FROM categories WHERE category_id = $id");
     $data = mysqli_fetch_assoc($data);
 
     return $data;
-
 }
 
-function insert_buy_data($values)
-{
+function insert_buy_data($values) {
     global $conn;
 
     mysqli_query($conn, "INSERT INTO alyassar VALUES $values");
