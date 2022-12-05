@@ -1,4 +1,5 @@
 <?php
+$page_now = "index";
 require '../src/functions.php';
 
 $products = get_all_products();
@@ -33,24 +34,25 @@ if (isset($_POST['buy-btn'])) {
 <?php require './templates/navbar.php' ?>
 <section class="hero-section py-10 lg:h-[90vh] flex items-center justify-center">
     <div>
-        <h1 class="font-semibold text-5xl leading-10">Express your Feelings with <span class="text-7xl">FLYHIGH</span>
+        <h1 class="font-semibold text-5xl leading-[4rem]">Express your Feelings with <span
+                class="text-8xl">FLYHIGH</span>
         </h1>
         <p class="text-2xl my-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore, velit error quasi
             hic doloribus nam!
         </p>
-        <a href="list_product.php" class="btn btn-outline text-lg w-fit">shop now</a>
+        <a href="list_product.php" class="btn btn-xl  btn-outline text-xl">shop now</a>
     </div>
     <div>
         <img class="object-cover w-[35rem]" src="./assets/img/guyskate-vector.png" alt="guyskate">
     </div>
 </section>
-<div class="show-three py-5 flex gap-5 justify-center">
+<div class="show-three py-5 flex gap-5 justify-center lg:h-[90vh] items-center">
     <?php for ($i = 0; $i < 3; $i++) : ?>
-    <div class="card w-72 bg-base-100 shadow-xl">
+    <div class="card w-72 bg-base-100 shadow-xl flex-grow-0 h-fit">
         <figure><img src="./product-img/<?= $products[$i]["product_image"] ?>" class="h-52 object-cover w-full"
                 alt="Shoes" />
         </figure>
-        <div class="card-body">
+        <div class="card-body h-fit">
             <h2 class="card-title">
                 <?= $products[$i]['product_name'] ?>
                 <div class="badge badge-secondary">NEW</div>

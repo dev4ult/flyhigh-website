@@ -1,4 +1,5 @@
 <?php
+$page_name = "list_product";
 require '../src/functions.php';
 
 $products = get_all_products();
